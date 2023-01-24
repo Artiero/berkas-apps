@@ -22,7 +22,8 @@ $kategoris = query_data("SELECT*FROM tbl_kategori");
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active text-white" aria-current="page" href="index.php">Home</a>
-          <a class="nav-link text-white" href="barang.php">Data barang</a>
+          <a class="nav-link text-white" href="berkas.php">Berkas</a>
+          <a class="nav-link text-white" href="ketegori.php">Ketegori</a>
         </div>
       </div>
     </div>
@@ -30,10 +31,12 @@ $kategoris = query_data("SELECT*FROM tbl_kategori");
   <div class="container">
     <h1 class="text-center">Data Kategori</h1>
     <table class="table table-dark table-striped">
+    <a href="tambah_kategori.php" class="btn btn-primary mb-2" name="tambah">Tambah</a>
       <thead>
         <tr>
         <th scope="col">Id</th>
           <th scope="col">Nama Kategori</th>
+          <th scope="col">Hapus Data</th>
         </tr>
       </thead>
       <tbody>
@@ -44,6 +47,7 @@ $kategoris = query_data("SELECT*FROM tbl_kategori");
           <tr>
           <td><?= $id ?></td>
             <td><?= $kategori['nama_kategori'] ?></td>
+            <td><a href="hapus_kategori.php?id=<?=$kategori['id']?>" class="btn btn-danger">Hapus</a></td>
           </tr>
         <?php
           $id++;
