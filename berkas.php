@@ -1,6 +1,14 @@
 <?php
+// function untuk memanggil function.php
 require 'function.php';
 $berkass = query_data("SELECT*FROM tbl_berkas");
+if (isset($_POST['search'])) {
+  $keyword = $_POST['pencarian'];
+  $berkass = query_data("SELECT*FROM tbl_berkas
+  WHERE nama_berkas LIKE '%$keyword%' ||
+  keterangan_berkas LIKE '%$keyword%' ||
+  kategori_berkas LIKE '%$keyword%'");
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +40,16 @@ $berkass = query_data("SELECT*FROM tbl_berkas");
   </nav>
   <div class="container">
     <h1 class="text-center">Data Berkas</h1>
+    <form action="" method="post">
+      <div class="row g-3 align-items-center mb-3">
+        <div class="col-5">
+          <input type="text" name="pencarian" id="inputPassword6" class="form-control" placeholder="Pencarian...">
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-dark" name="search">Search</button>
+        </div>
+      </div>
+    </form> 
     <table class="table table-dark table-striped">
       <a href="tambah_berkas.php" class="btn btn-primary mb-2" name="tambah">Tambah</a>
       <thead>
@@ -43,10 +61,18 @@ $berkass = query_data("SELECT*FROM tbl_berkas");
           <th scope="col">Kategori Berkas</th>
           <th scope="col">Nama File Berkas</th>
           <th scope="col">Hapus Data</th>
+          <th scope="col">Update Data</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody> 
         <?php
+        if(!$berkass){
+        ?>
+        <tr>
+        <td colspan="8" class="text-center">No Data</td>
+        </tr>
+        <?php
+          }else{
         $id = 1;
         foreach ($berkass as $berkas):
           ?>
@@ -67,13 +93,19 @@ $berkass = query_data("SELECT*FROM tbl_berkas");
               <?= $berkas['kategori_berkas'] ?>
             </td>
             <td>
-              <?= $berkas['nama_file_berkas'] ?>
+              <a href="berkas/<?= $berkas['nama_file_berkas'] ?>" class="btn btn-info">donwload</a>
             </td>
-            <td><a href="hapus_berkas.php?id=<?= $berkas['id'] ?>" class="btn btn-danger">Hapus</a></td>
+            <td>
+              <a href="hapus_berkas.php?id=<?= $berkas['id'] ?>&nama_file_berkas=<?= $berkas['nama_file_berkas'] ?>" class="btn btn-danger">Hapus</a>
+            </td>
+            <td>
+              <a href="update_berkas.php?id=<?= $berkas['id'] ?>" class="btn btn-info">Update</a>
+            </td>
           </tr>
           <?php
           $id++;
         endforeach;
+      }
         ?>
       </tbody>
     </table>
