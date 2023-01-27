@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+  header('Location: sign_in.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +28,7 @@
                     <a class="nav-link text-white" aria-current="page" href="index.php">Home</a>
                     <a class="nav-link text-white" href="berkas.php">Berkas</a>
                     <a class="nav-link text-white" href="kategori.php">Kategori</a>
+                    <a class="nav-link text-white" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION['username'])){
+  header('Location: sign_in.php');
+}
+?>
+<?php
 require 'function.php';
 $id = $_GET['id'];
 $cekbiodata = mysqli_query($conn, "SELECT*FROM tbl_kategori WHERE id=$id");

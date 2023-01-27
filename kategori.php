@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+  header('Location: sign_in.php');
+}
+?>
+<?php
 require 'function.php';
 $kategoris = query_data("SELECT*FROM tbl_kategori");
 ?>
@@ -23,9 +29,10 @@ $kategoris = query_data("SELECT*FROM tbl_kategori");
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active text-white" aria-current="page" href="index.php">Home</a>
+          <a class="nav-link text-white" aria-current="page" href="index.php">Home</a>
           <a class="nav-link text-white" href="berkas.php">Berkas</a>
-          <a class="nav-link text-white" href="ketegori.php">Ketegori</a>
+          <a class="nav-link text-white" href="kategori.php">Kategori</a>
+          <a class="nav-link text-white" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

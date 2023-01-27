@@ -125,3 +125,33 @@ function update_kategori($data)
   nama_kategori='$nama_kategori' WHERE id= $id");
   return mysqli_affected_rows($conn);
 }
+function add_account($data){
+  global $conn;
+  $nama = $data['nama'];
+  $username = $data['username'];
+  $password = $data['password'];
+  $hash_password = password_hash($password, PASSWORD_DEFAULT);
+  mysqli_query($conn, "INSERT INTO tbl_admin VALUES('$username','$hash_password','$nama')");
+  return mysqli_affected_rows($conn);
+}
+function login($data){
+  global $conn;
+  $username = $data['username'];
+  $password = $data['password'];
+  // Perintah query sql
+  $query = "SELECT * FROM tbl_admin WHERE username='$username'";
+  $get = mysqli_query($conn, $query);
+  // Mengambil jumlah baris
+  $result = mysqli_num_rows($get);
+  // Mengambil data
+  $row_account = mysqli_fetch_assoc($get);
+  if($result === 1){
+    if(password_verify($password, $row_account['password'])){
+      return true;
+    }else{
+      return false;
+    }
+  }else{
+    return false;
+  }
+}
