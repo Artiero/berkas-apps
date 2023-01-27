@@ -1,6 +1,7 @@
 <?php
 require 'function.php';
 $id = $_GET['id'];
+$nama_file_berkas = $_GET['nama_file_berkas'];
 $cekbiodata = mysqli_query($conn, "SELECT*FROM tbl_berkas WHERE id=$id");
 $resultbiodata = mysqli_fetch_assoc($cekbiodata);
 ?>
@@ -34,9 +35,10 @@ $resultbiodata = mysqli_fetch_assoc($cekbiodata);
 	</nav>
 	<div class="container">
 		<h1 class="mt-2 text-center">Form Update berkas</h1>
-		<form action="" method="post">
+		<form action="" method="post" enctype="multipart/form-data">
 			<div class="mb-3">
 				<input type="hidden" name="id" value="<?= $id ?>">
+				<input type="hidden" name="file_lama" value="<?= $nama_file_berkas ?>">
 				<label for="nama_berkas" class="form-label">Nama Berkas</label>
 				<input type="text" class="form-control" id="nama_berkas" name="nama_berkas"
 					value="<?= $resultbiodata['nama_berkas'] ?>">
@@ -55,11 +57,10 @@ $resultbiodata = mysqli_fetch_assoc($cekbiodata);
 					<input type="text" class="form-control" id="kategori_berkas" name="kategori_berkas"
 						value="<?= $resultbiodata['kategori_berkas'] ?>">
 				</div>
-				<div class="mb-3">
-					<label for="nama_file_berkas" class="form-label">Nama File Berkas</label>
-					<input type="text" class="form-control" id="nama_file_berkas" name="nama_file_berkas"
-						value="<?= $resultbiodata['nama_file_berkas'] ?>">
-				</div>
+                <div class="input-group mb-3">  
+                    <input type="file" name="file" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                </div>
 				<button type="submit" class="btn btn-primary" name="update">Submit</button>
 		</form>
 	</div>

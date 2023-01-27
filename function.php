@@ -100,13 +100,20 @@ function update_berkas($data)
   $tgl_upload = $data['tgl_upload'];
   $keterangan_berkas = $data['keterangan_berkas'];
   $kategori_berkas = $data['kategori_berkas'];
-  $nama_file_berkas = $data['nama_file_berkas'];
-  mysqli_query($conn, "UPDATE tbl_berkas SET
+  $file_lama = $data['file_lama'];
+  if($_FILES['file']['error']===4){
+    $file = $file_lama;
+  }else{
+    $file = upload();
+    unlink("berkas/$file_lama");
+  } 
+  mysqli_query($conn, "UPDATE tbl_berkas SET  
   nama_berkas='$nama_berkas',
   tgl_upload='$tgl_upload',
   keterangan_berkas='$keterangan_berkas',
   kategori_berkas='$kategori_berkas',
-  nama_file_berkas='$nama_file_berkas' WHERE id= $id");
+  nama_file_berkas='$file'
+  WHERE id= $id");
   return mysqli_affected_rows($conn);
 }
 function update_kategori($data)

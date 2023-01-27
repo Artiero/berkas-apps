@@ -99,7 +99,7 @@ if (isset($_POST['search'])) {
               <a href="hapus_berkas.php?id=<?= $berkas['id'] ?>&nama_file_berkas=<?= $berkas['nama_file_berkas'] ?>" class="btn btn-danger">Hapus</a>
             </td>
             <td>
-              <a href="update_berkas.php?id=<?= $berkas['id'] ?>" class="btn btn-info">Update</a>
+              <a href="update_berkas.php?id=<?= $berkas['id'] ?>&nama_file_berkas=<?= $berkas['nama_file_berkas'] ?>" class="btn btn-info">Ubah</a>
             </td>
           </tr>
           <?php
